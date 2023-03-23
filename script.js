@@ -1,13 +1,8 @@
-/**
- * Created by nhatnk on 4/26/17.
- */
-
-function Hero(image, top, left, size, speed) {
+function Hero(image, top, left, size) {
     this.image = image;
     this.top = top;
     this.left = left;
     this.size = size;
-    this.speed = speed;
 
     this.getHeroElement = function () {
         return '<img width="' + this.size + '"' +
@@ -17,42 +12,37 @@ function Hero(image, top, left, size, speed) {
     }
 
     this.moveRight = function () {
-        this.left += this.speed;
+        this.left += 200;
+        console.log('ok: ' + this.left);
     }
-
     this.moveLeft = function () {
-        this.left -= this.speed;
+        this.left -= 200;
+        console.log('ok: ' + this.left);
     }
-
     this.moveUp = function () {
-        this.top -= this.speed;
+        this.top -= 200;
+        console.log('ok: ' + this.left);
     }
     this.moveDown = function () {
-        this.top += this.speed;
+        this.top += 200;
+        console.log('ok: ' + this.left);
     }
 
 }
 
-var hero = new Hero('pngegg.png', 20, 30, 200, 5);
+let hero = new Hero('pngegg.png', 20, 30, 200);
 
 function start() {
-    window.addEventListener('keydown', (event) => {
-        switch (event.key) {
-            case "ArrowUp":
-                hero.moveUp();
-                break;
-            case "ArrowDown":
-                hero.moveDown();
-                break;
-            case "ArrowLeft":
-                hero.moveLeft();
-                break;
-            case "ArrowRight":
-                hero.moveRight();
-                break;
-        }
-    })
-
+    console.log(hero.top, hero.left);
+    if (hero.left < window.innerWidth - hero.size && hero.top === 20) {
+        hero.moveRight();
+    } else if (hero.left >= window.innerWidth - hero.size && hero.top <= window.innerHeight - hero.size) {
+        hero.moveDown();
+    } else if (hero.top >= window.innerHeight - hero.size && hero.left > 20 + hero.size) {
+        hero.moveLeft();
+    } else {
+        hero.moveUp();
+    }
     document.getElementById('game').innerHTML = hero.getHeroElement();
     setTimeout(start, 500)
 }
