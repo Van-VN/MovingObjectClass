@@ -1,8 +1,9 @@
-function Hero(image, top, left, size) {
+function Hero(image, top, left, size, speed) {
     this.image = image;
     this.top = top;
     this.left = left;
     this.size = size;
+    this.speed = speed;
 
     this.getHeroElement = function () {
         return '<img width="' + this.size + '"' +
@@ -12,33 +13,33 @@ function Hero(image, top, left, size) {
     }
 
     this.moveRight = function () {
-        this.left += 200;
+        this.left += speed;
         console.log('ok: ' + this.left);
     }
     this.moveLeft = function () {
-        this.left -= 200;
+        this.left -= speed;
         console.log('ok: ' + this.left);
     }
     this.moveUp = function () {
-        this.top -= 200;
+        this.top -= speed;
         console.log('ok: ' + this.left);
     }
     this.moveDown = function () {
-        this.top += 200;
+        this.top += speed;
         console.log('ok: ' + this.left);
     }
 
 }
 
-let hero = new Hero('pngegg.png', 20, 30, 200);
+let hero = new Hero('pngegg.png', 20, 30, 200, 200);
 
 function start() {
     console.log(hero.top, hero.left);
     if (hero.left < window.innerWidth - hero.size && hero.top === 20) {
         hero.moveRight();
-    } else if (hero.left >= window.innerWidth - hero.size && hero.top <= window.innerHeight - hero.size) {
+    } else if (hero.left >= window.innerWidth - hero.size && hero.top <= window.innerHeight - (hero.size + 132)) {
         hero.moveDown();
-    } else if (hero.top >= window.innerHeight - hero.size && hero.left > 20 + hero.size) {
+    } else if (hero.top >= window.innerHeight - (hero.size + 132) && hero.left > 20 + hero.size) {
         hero.moveLeft();
     } else {
         hero.moveUp();
